@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@repo/auth": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/ui": "workspace:*",
@@ -25,8 +26,10 @@
     "lucide-react": "^0.545.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.71.1",
     "tailwindcss": "^4.1.18",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "^0.3.11",

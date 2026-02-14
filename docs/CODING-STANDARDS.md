@@ -100,6 +100,31 @@ export type PetFormInput = z.infer<typeof petFormSchema>
 
 - One schema file per feature in `modules/{feature}/schemas/`
 - Export both schema and inferred type
+
+## Type Naming — Request / Response
+
+Types that represent API payloads (form submissions, mutations, queries) must use the `...Request` / `...Response` suffix. Never use `...Input`, `...Output`, `...Payload`, `...Data`, or `...Dto`.
+
+```ts
+// ✅ Correct
+type SignInRequest = z.infer<typeof signInSchema>
+type SignUpRequest = z.infer<typeof signUpSchema>
+type CreatePetRequest = z.infer<typeof createPetSchema>
+type UpdateUserRequest = z.infer<typeof updateUserSchema>
+type GetPetResponse = { id: string; name: string; species: string }
+
+// ❌ Incorrect
+type LoginInput = ...
+type RegisterInput = ...
+type CreatePetPayload = ...
+type UpdateUserDto = ...
+```
+
+**Rules:**
+
+- Schemas: `{verb}{noun}Schema` (e.g. `signInSchema`, `createPetSchema`)
+- Request types: `{VerbNoun}Request` (e.g. `SignInRequest`, `CreatePetRequest`)
+- Response types: `{VerbNoun}Response` (e.g. `GetPetResponse`, `ListUsersResponse`)
 - Use `.min()`, `.max()`, etc. with custom error messages
 - Colocate domain types in `domain/` folder
 

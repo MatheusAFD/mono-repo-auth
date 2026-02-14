@@ -1,0 +1,21 @@
+import { useRouter } from '@tanstack/react-router'
+import { authClient } from '@/lib/auth-client'
+import type { SignInRequest } from '../schemas/auth.schema'
+
+export function useAuthActions() {
+  const router = useRouter()
+
+  async function signIn(data: SignInRequest) {
+    const { error } = await authClient.signIn.email(data)
+    if (error) return error.message ?? 'Invalid credentials'
+    await router.navigate({ to: '/dashboard' })
+    return null
+  }
+
+  async function signOut() {
+    await authClient.signOut()
+    await router.navigate({ to: '/auth/sign-in' })
+  }
+
+  return { signIn, signOut }
+}

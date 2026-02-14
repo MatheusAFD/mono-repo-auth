@@ -9,8 +9,8 @@ export const authMiddleware = createMiddleware().server(async ({ next }) => {
     fetchOptions: { headers: getRequestHeaders() },
   })
 
-  if (!session) throw redirect({ to: '/login' })
-  if (session.user.role !== USER_ROLES.Backoffice) throw redirect({ to: '/login' })
+  if (!session) throw redirect({ to: '/auth/sign-in' })
+  if (session.user.role !== USER_ROLES.Backoffice) throw redirect({ to: '/auth/sign-in' })
 
   return next({ context: { session } })
 })

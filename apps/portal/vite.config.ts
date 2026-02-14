@@ -8,9 +8,16 @@ import tailwindcss from '@tailwindcss/vite'
 
 const config = defineConfig({
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    alias: [
+      {
+        find: '@/lib/utils',
+        replacement: fileURLToPath(new URL('../../packages/ui/src/lib/utils', import.meta.url)),
+      },
+      {
+        find: '@',
+        replacement: fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    ],
   },
   plugins: [
     devtools(),

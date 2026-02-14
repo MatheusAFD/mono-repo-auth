@@ -1,18 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Button } from '@repo/ui/components/button'
 import { authClient } from '@/lib/auth-client'
+import { useAuthActions } from '@/modules/auth/hooks/use-auth-actions'
 
-export const Route = createFileRoute('/_auth/dashboard')({
+export const Route = createFileRoute('/_authed/dashboard')({
   component: DashboardPage,
 })
 
 function DashboardPage() {
   const { data: session } = authClient.useSession()
-  const navigate = Route.useNavigate()
-
-  async function handleSignOut() {
-    await authClient.signOut()
-    await navigate({ to: '/login' })
-  }
+  const { signOut } = useAuthActions()
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -20,13 +17,14 @@ function DashboardPage() {
         <h1 className="text-xl font-semibold text-gray-900">Backoffice</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600">{session?.user.email}</span>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="text-sm text-red-600 hover:text-red-700 font-medium"
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={signOut}
+            className="text-red-600 hover:text-red-700"
           >
             Sign out
-          </button>
+          </Button>
         </div>
       </header>
 

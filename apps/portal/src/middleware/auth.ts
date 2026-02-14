@@ -9,7 +9,7 @@ export const authMiddleware = createMiddleware().server(async ({ next }) => {
   })
 
   if (!session) {
-    throw redirect({ to: '/login' })
+    throw redirect({ to: '/auth/sign-in' })
   }
 
   return next({ context: { session } })
