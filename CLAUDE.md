@@ -12,7 +12,7 @@ mono-repo-auth/
 ├── apps/
 │   ├── portal/          # TanStack Start (porta 3000) — portal do usuário final
 │   ├── backoffice/      # TanStack Start (porta 3001) — painel administrativo
-│   └── backend/         # NestJS + Express (porta 4000) — API REST
+│   └── api/             # NestJS + Express (porta 4000) — API REST
 ├── packages/
 │   ├── ui/              # Biblioteca de componentes (Vite + Shadcn/UI + Base UI)
 │   ├── auth/            # Configurações compartilhadas do Better Auth
@@ -34,7 +34,7 @@ mono-repo-auth/
 |---|---|---|
 | `apps/portal` | TanStack Start v1, React 19, TanStack Query, Better Auth client | 3000 |
 | `apps/backoffice` | TanStack Start v1, React 19, TanStack Query, Better Auth client | 3001 |
-| `apps/backend` | NestJS v11, Express, Drizzle ORM, Better Auth, PostgreSQL | 4000 |
+| `apps/api` | NestJS v11, Express, Drizzle ORM, Better Auth, PostgreSQL | 4000 |
 | `packages/ui` | Vite, React 19, Shadcn/UI (estilo), @base-ui-components/react | — |
 | `packages/auth` | better-auth (shared client factory) | — |
 | `packages/shared` | TypeScript puro — tipos e utilitários Result/ok/err | — |
@@ -66,7 +66,7 @@ pnpm lint
 pnpm format
 
 # Backend — infraestrutura Docker
-cd apps/backend && docker-compose up -d
+cd apps/api && docker-compose up -d
 
 # Backend — migrations Drizzle
 pnpm --filter @repo/api db:generate
@@ -90,7 +90,7 @@ VITE_API_URL=http://localhost:4000
 VITE_API_URL=http://localhost:4000
 ```
 
-### `apps/backend/.env`
+### `apps/api/.env`
 ```env
 NODE_ENV=development
 PORT=4000
@@ -173,13 +173,12 @@ import { ok, err } from '@repo/shared'
 
 ### Componentes UI
 
-Os componentes em `packages/ui` usam **Base UI (`@base-ui-components/react`)** como primitivos headless, **não** Radix UI. Estilização via Tailwind CSS v4 e CVA.
+Os componentes em `packages/ui` usam **Radix UI** como primitivos headless, com estilização via Tailwind CSS v4 e CVA.
 
 Para adicionar novos componentes Shadcn ao `packages/ui`:
 ```bash
 cd packages/ui
 npx shadcn@latest add <component>
-# Depois, substitua manualmente os imports Radix pelos equivalentes Base UI
 ```
 
 ---
@@ -211,24 +210,33 @@ nest g service modules/{name}
 ```ts
 // Todas as rotas são protegidas por padrão (AuthGuard global)
 // Para tornar pública:
-import { Public } from '@/common/decorators/public.decorator'
+import { AllowAnonymous } from '@thallesp/nestjs-better-auth'
 
-@Public()
+@AllowAnonymous()
 @Get('health')
 healthCheck() { ... }
 ```
 
-### Obter usuário atual
+### Obter sessão do usuário
 ```ts
-import { CurrentUser } from '@/common/decorators/current-user.decorator'
+import { Session, type UserSession } from '@thallesp/nestjs-better-auth'
 
 @Get('me')
-getMe(@CurrentUser() user: User) { return user }
+getMe(@Session() session: UserSession) { return session.user }
+```
+
+### Proteger por role
+```ts
+import { Roles } from '@thallesp/nestjs-better-auth'
+
+@Controller('sessions')
+@Roles(['backoffice']) // Apenas usuários com role 'backoffice'
+export class SessionsController { ... }
 ```
 
 ### Better Auth no Backend
 
-Better Auth expõe todas as rotas de autenticação em `/api/auth/*`. O `AuthController` faz o bridge entre Fastify e o handler Better Auth. **Não** crie rotas de autenticação manualmente.
+Better Auth expõe todas as rotas de autenticação em `/api/auth/*`. O `AuthModule` de `@thallesp/nestjs-better-auth` faz o bridge entre Express e o handler Better Auth. **Não** crie rotas de autenticação manualmente.
 
 ---
 
@@ -236,7 +244,7 @@ Better Auth expõe todas as rotas de autenticação em `/api/auth/*`. O `AuthCon
 
 ```bash
 # Subir PostgreSQL + Redis localmente
-cd apps/backend
+cd apps/api
 docker-compose up -d
 
 # Verificar serviços

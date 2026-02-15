@@ -1,1 +1,1 @@
-export type { auth } from '../../../apps/backend/src/auth/auth'
+export type { auth } from '../../../apps/api/src/auth/auth'

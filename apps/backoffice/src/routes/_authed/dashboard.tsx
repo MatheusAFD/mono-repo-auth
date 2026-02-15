@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Button } from '@repo/ui/components/button'
 import { authClient } from '@/lib/auth-client'
 import { useAuthActions } from '@/modules/auth/hooks/use-auth-actions'
+import { SessionsTable } from '@/modules/sessions/components/sessions-table'
 
 export const Route = createFileRoute('/_authed/dashboard')({
   component: DashboardPage,
@@ -23,14 +24,18 @@ function DashboardPage() {
             onClick={signOut}
             className="text-red-600 hover:text-red-700"
           >
-            Sign out
+            Sair
           </Button>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Dashboard</h2>
-        <p className="text-gray-600">Welcome back, {session?.user.name ?? session?.user.email}</p>
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-1">Sessões ativas</h2>
+          <p className="text-gray-600">Gerencie as sessões de autenticação ativas no sistema.</p>
+        </div>
+
+        <SessionsTable />
       </main>
     </div>
   )

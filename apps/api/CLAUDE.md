@@ -1,4 +1,4 @@
-# CLAUDE.md — apps/backend
+# CLAUDE.md — apps/api (Backend)
 
 > REST API. NestJS v11, Express, Drizzle ORM, Better Auth v1.4.18, PostgreSQL. Port 4000.
 
@@ -11,18 +11,16 @@ src/
 ├── auth/
 │   ├── auth.ts           # Better Auth central config (betterAuth())
 │   └── permissions.ts    # RBAC — accessControl, roles (portal, backoffice)
-├── common/
-│   ├── decorators/
-│   │   ├── public.decorator.ts       # @Public() — disables AuthGuard on route
-│   │   └── current-user.decorator.ts # @CurrentUser() — injects authenticated user
-│   └── guards/
-│       └── auth.guard.ts             # Global guard — validates session via Better Auth
+├── modules/
+│   └── sessions/
+│       ├── sessions.module.ts      # NestJS module
+│       ├── sessions.controller.ts  # @Roles(['backoffice']) protected routes
+│       └── sessions.service.ts     # Better Auth API interaction
 ├── config/
 │   └── database/
 │       ├── index.ts   # Drizzle + postgres connection (with DATABASE_URL validation)
 │       └── schema.ts  # Drizzle schema (Better Auth tables + extensions)
-└── modules/
-    └── {feature}/     # NestJS modules by feature
+└── main.ts           # NestJS bootstrap
 ```
 
 ---
@@ -65,24 +63,33 @@ nest g service modules/{name}
 
 ### Public vs protected routes
 
-All routes are protected by default (global AuthGuard).
+All routes are protected by default (global AuthGuard from `@thallesp/nestjs-better-auth`).
 
 ```ts
-import { Public } from '@/common/decorators/public.decorator'
+import { AllowAnonymous } from '@thallesp/nestjs-better-auth'
 
-@Public()
+@AllowAnonymous()
 @Get('health')
 healthCheck() { return { status: 'ok' } }
 ```
 
-### Current authenticated user
+### Current user session
 
 ```ts
-import { CurrentUser } from '@/common/decorators/current-user.decorator'
-import type { User } from 'better-auth'
+import { Session, type UserSession } from '@thallesp/nestjs-better-auth'
 
 @Get('me')
-getMe(@CurrentUser() user: User) { return user }
+getMe(@Session() session: UserSession) { return session.user }
+```
+
+### Role-based access
+
+```ts
+import { Roles } from '@thallesp/nestjs-better-auth'
+
+@Controller('sessions')
+@Roles(['backoffice'])
+export class SessionsController { ... }
 ```
 
 ### Error handling (Go-style)
@@ -122,7 +129,7 @@ pnpm --filter @repo/api db:studio     # Drizzle Studio
 ### Docker (PostgreSQL + Redis)
 
 ```bash
-cd apps/backend
+cd apps/api
 docker-compose up -d
 ```
 

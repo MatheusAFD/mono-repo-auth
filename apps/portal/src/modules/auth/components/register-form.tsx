@@ -36,13 +36,25 @@ export function SignUpForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" type="text" autoComplete="name" placeholder="John Doe" {...register('name')} />
+            <Input
+              id="name"
+              type="text"
+              autoComplete="name"
+              placeholder="John Doe"
+              {...register('name')}
+            />
             {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
           </div>
 
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" autoComplete="email" placeholder="you@example.com" {...register('email')} />
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@example.com"
+              {...register('email')}
+            />
             {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
           </div>
 

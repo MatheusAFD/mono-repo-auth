@@ -43,6 +43,16 @@ export {
 } from './components/tooltip'
 export { Badge, badgeVariants } from './components/badge'
 export { Separator } from './components/separator'
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+} from './components/table'
 
 // Lib
 export { cn } from './lib/utils'

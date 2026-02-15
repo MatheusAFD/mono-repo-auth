@@ -36,7 +36,13 @@ export function SignInForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" autoComplete="email" placeholder="you@example.com" {...register('email')} />
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@example.com"
+              {...register('email')}
+            />
             {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
           </div>
 
