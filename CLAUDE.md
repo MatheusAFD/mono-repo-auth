@@ -53,7 +53,7 @@ pnpm dev
 # Desenvolvimento por projeto específico
 pnpm --filter @repo/portal dev
 pnpm --filter @repo/backoffice dev
-pnpm --filter @repo/backend dev
+pnpm --filter @repo/api dev
 
 # Build de produção
 pnpm build
@@ -69,9 +69,9 @@ pnpm format
 cd apps/backend && docker-compose up -d
 
 # Backend — migrations Drizzle
-pnpm --filter @repo/backend db:generate
-pnpm --filter @repo/backend db:migrate
-pnpm --filter @repo/backend db:studio
+pnpm --filter @repo/api db:generate
+pnpm --filter @repo/api db:migrate
+pnpm --filter @repo/api db:studio
 ```
 
 ---
@@ -260,7 +260,7 @@ Serviços disponíveis após `docker-compose up`:
 1. `docker-compose up -d` no backend para subir o banco
 2. Copiar `.env.example` para `.env` em cada app e preencher
 3. `pnpm install` na raiz
-4. `pnpm --filter @repo/backend db:migrate` para rodar as migrations
+4. `pnpm --filter @repo/api db:migrate` para rodar as migrations
 5. `pnpm dev` para iniciar todos os serviços
 
 ---

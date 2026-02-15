@@ -112,9 +112,9 @@ Missing `DATABASE_URL` throws `Error: DATABASE_URL environment variable is not s
 ### Drizzle migrations
 
 ```bash
-pnpm --filter @repo/backend db:generate   # generate migration
-pnpm --filter @repo/backend db:migrate    # apply migration
-pnpm --filter @repo/backend db:studio     # Drizzle Studio
+pnpm --filter @repo/api db:generate   # generate migration
+pnpm --filter @repo/api db:migrate    # apply migration
+pnpm --filter @repo/api db:studio     # Drizzle Studio
 ```
 
 **Re-run after** modifying `src/auth/auth.ts` (adding plugins that change the schema).
