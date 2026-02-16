@@ -14,7 +14,7 @@ mono-repo-auth/
 │   ├── backoffice/      # TanStack Start (porta 3001) — painel administrativo
 │   └── api/             # NestJS + Express (porta 4000) — API REST
 ├── packages/
-│   ├── ui/              # Biblioteca de componentes (Vite + Shadcn/UI + Base UI)
+│   ├── ui/              # Biblioteca de componentes (Vite + Shadcn/UI + Radix UI)
 │   ├── auth/            # Configurações compartilhadas do Better Auth
 │   ├── shared/          # Tipos e utilitários compartilhados
 │   └── typescript-config/ # tsconfig bases reutilizáveis
@@ -35,7 +35,7 @@ mono-repo-auth/
 | `apps/portal` | TanStack Start v1, React 19, TanStack Query, Better Auth client | 3000 |
 | `apps/backoffice` | TanStack Start v1, React 19, TanStack Query, Better Auth client | 3001 |
 | `apps/api` | NestJS v11, Express, Drizzle ORM, Better Auth, PostgreSQL | 4000 |
-| `packages/ui` | Vite, React 19, Shadcn/UI (estilo), @base-ui-components/react | — |
+| `packages/ui` | Vite, React 19, Shadcn/UI (estilo), Radix UI | — |
 | `packages/auth` | better-auth (shared client factory) | — |
 | `packages/shared` | TypeScript puro — tipos e utilitários Result/ok/err | — |
 
@@ -280,7 +280,7 @@ Serviços disponíveis após `docker-compose up`:
 - [TanStack Start](https://tanstack.com/start/latest)
 - [TanStack Router](https://tanstack.com/router/latest)
 - [Better Auth](https://www.better-auth.com)
-- [Base UI](https://base-ui.com)
+- [Radix UI](https://www.radix-ui.com)
 - [Shadcn/UI](https://ui.shadcn.com)
 - [NestJS](https://nestjs.com)
 - [Drizzle ORM](https://orm.drizzle.team)

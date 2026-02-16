@@ -65,7 +65,13 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/dashboard' | '/auth/sign-in' | '/auth/sign-up'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/dashboard' | '/auth/sign-in' | '/auth/sign-up'
-  id: '__root__' | '/' | '/_authed' | '/_authed/dashboard' | '/auth/sign-in' | '/auth/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authed'
+    | '/_authed/dashboard'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -123,7 +129,8 @@ const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedDashboardRoute: AuthedDashboardRoute,
 }
 
-const AuthedRouteWithChildren = AuthedRoute._addFileChildren(AuthedRouteChildren)
+const AuthedRouteWithChildren =
+  AuthedRoute._addFileChildren(AuthedRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
