@@ -372,6 +372,12 @@ if (error.status === HttpStatusCodes.UNAUTHORIZED) {
 }
 ```
 
+## E2E Testing (Playwright)
+
+Testes end-to-end ficam na pasta `e2e/` na raiz do monorepo, organizados por app (`portal/` e `backoffice/`). A configuração central está em `playwright.config.ts`.
+
+Para detalhes completos sobre como escrever testes, boas práticas, e padrões avançados, consulte [`docs/TESTING.md`](TESTING.md).
+
 ## Backend (NestJS) — Convenções
 
 ### Módulo com RBAC

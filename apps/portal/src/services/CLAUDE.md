@@ -1,22 +1,22 @@
-# Services Layer — Guia para o Claude
+# Services Layer — Guide for Claude
 
-## Estrutura
+## Structure
 
 ```
 services/
 ├── adapters/
-│   └── fetch-adapter.ts       # FetchHttpClientAdapter — implementa HttpClient
+│   └── fetch-adapter.ts       # FetchHttpClientAdapter — implements HttpClient
 ├── factories/
-│   └── http-client-factory.ts # httpHttpClientFactory — cria instâncias do adapter
+│   └── http-client-factory.ts # httpHttpClientFactory — creates adapter instances
 ├── error.ts                   # ApiError, AuthenticationError, ForbiddenError
 └── http/
     └── {entity}/
-        ├── {entity}-service.ts      # Classe de serviço com métodos HTTP
-        ├── use-{entity}-service.ts   # Hooks TanStack Query (useQuery/useMutation)
-        └── index.ts                  # Instância singleton do serviço
+        ├── {entity}-service.ts      # Service class with HTTP methods
+        ├── use-{entity}-service.ts   # TanStack Query hooks (useQuery/useMutation)
+        └── index.ts                  # Singleton service instance
 ```
 
-## Como Criar um Novo Serviço
+## How to Create a New Service
 
 ### 1. Domain types (`modules/{feature}/domain/{entity}.domain.ts`)
 
@@ -123,12 +123,12 @@ export function useCreateUser() {
 }
 ```
 
-## Regras
+## Rules
 
-- **Sempre** use Go-style tuple `[Error | null, Data | null]` nos métodos de serviço
-- **Sempre** use `throw` dentro de `queryFn`/`mutationFn` para propagar erros ao TanStack Query
-- **Sempre** `invalidateQueries` no `onSuccess` de mutações para manter os dados atualizados
-- **Nunca** use `try/catch` na camada de serviço — o adapter já retorna tuplas
-- **Nunca** use nomes como `Input`, `Output`, `Payload`, `Dto` — use `Request` e `Response`
-- O `index.ts` cria a instância singleton — os hooks e componentes importam dela
-- O `FetchHttpClientAdapter` detecta `FormData` automaticamente e remove o `Content-Type: application/json`
+- **Always** use Go-style tuple `[Error | null, Data | null]` in service methods
+- **Always** use `throw` inside `queryFn`/`mutationFn` to propagate errors to TanStack Query
+- **Always** `invalidateQueries` in `onSuccess` of mutations to keep data up to date
+- **Never** use `try/catch` in the service layer — the adapter already returns tuples
+- **Never** use names like `Input`, `Output`, `Payload`, `Dto` — use `Request` and `Response`
+- The `index.ts` creates the singleton instance — hooks and components import from it
+- The `FetchHttpClientAdapter` auto-detects `FormData` and removes the `Content-Type: application/json` header
