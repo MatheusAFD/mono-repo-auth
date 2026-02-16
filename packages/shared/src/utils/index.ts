@@ -1,4 +1,4 @@
-import { type Result } from '../types/index.js'
+import type { Result } from '../types/index.js'
 
 /**
  * Creates a successful Result tuple

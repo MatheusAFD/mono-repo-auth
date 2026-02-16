@@ -274,6 +274,33 @@ Available services after `docker-compose up`:
 
 ---
 
+## Git Hooks (Husky)
+
+Git hooks are managed by [Husky](https://typicode.github.io/husky/) and enforce quality checks automatically.
+
+| Hook | Trigger | Action |
+|---|---|---|
+| `pre-commit` | `git commit` | Runs `pnpm format:check && pnpm lint` |
+| `commit-msg` | `git commit` | Validates [Conventional Commits](https://www.conventionalcommits.org/) via commitlint |
+| `pre-push` | `git push` | Runs `pnpm build` — push is blocked if build fails |
+
+### Conventional Commit Format
+
+```
+type(scope): description
+
+# Examples:
+feat(portal): add user profile page
+fix(api): handle null session in auth middleware
+chore: update dependencies
+docs: update ARCHITECTURE.md
+refactor(ui): extract card variants
+```
+
+Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
+
+---
+
 ## Development Workflow
 
 1. `docker-compose up -d` in the backend to start the database

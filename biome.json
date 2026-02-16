@@ -7,7 +7,16 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["node_modules", "dist", ".output", ".turbo", "build", "coverage", "*.min.js"]
+    "ignore": [
+      "node_modules",
+      "dist",
+      ".output",
+      ".turbo",
+      "build",
+      "coverage",
+      "*.min.js",
+      "**/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -33,18 +42,7 @@
       }
     }
   },
-  "overrides": [
-    {
-      "include": ["**/routeTree.gen.ts"],
-      "linter": {
-        "rules": {
-          "suspicious": {
-            "noExplicitAny": "off"
-          }
-        }
-      }
-    }
-  ],
+  "overrides": [],
   "javascript": {
     "parser": {
       "unsafeParameterDecoratorsEnabled": true
