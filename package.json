@@ -18,6 +18,7 @@
     "format:check": "biome format .",
     "clean": "turbo run clean && rimraf node_modules",
     "test": "turbo run test",
+    "test:all": "turbo run test && playwright test",
     "test:e2e": "playwright test",
     "test:e2e:portal": "playwright test --project=portal",
     "test:e2e:backoffice": "playwright test --project=backoffice",
