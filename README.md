@@ -13,7 +13,7 @@ A full-stack monorepo starter with **authentication built-in**, featuring a user
 | **Auth** (`packages/auth`) | Better Auth (shared client) |
 | **Shared** (`packages/shared`) | TypeScript — types & utilities |
 
-**Tooling:** Turborepo · pnpm · Biome · TypeScript 5
+**Tooling:** Turborepo · pnpm · Biome · Husky · Playwright · TypeScript 5
 
 ## Getting Started
 
@@ -55,20 +55,56 @@ pnpm dev
 │   ├── auth/              # Better Auth client config
 │   ├── shared/            # Shared types & utilities
 │   └── typescript-config/ # Base tsconfig presets
+├── e2e/                  # Playwright E2E tests
+│   ├── portal/
+│   └── backoffice/
 ├── turbo.json
 ├── biome.json
+├── playwright.config.ts
+├── commitlint.config.ts
 └── pnpm-workspace.yaml
 ```
 
 ## Scripts
 
 ```bash
-pnpm dev          # Start all apps
-pnpm build        # Production build
-pnpm typecheck    # Type-check everything
-pnpm lint         # Lint all packages
-pnpm format       # Format with Biome
+pnpm dev                # Start all apps
+pnpm build              # Production build
+pnpm typecheck          # Type-check everything
+pnpm lint               # Lint all packages
+pnpm format             # Format with Biome
+pnpm test               # Unit tests (all packages)
+pnpm test:all           # Unit tests + E2E tests
+pnpm test:e2e           # E2E tests (Playwright)
+pnpm test:e2e:portal    # E2E tests — portal only
+pnpm test:e2e:backoffice # E2E tests — backoffice only
+pnpm test:e2e:ui        # E2E tests — interactive UI mode
 ```
+
+## Testing
+
+Unit tests use **Vitest** (portal, backoffice) and **Jest** (API). E2E tests use **Playwright** with projects for portal and backoffice.
+
+```bash
+# Run all unit tests
+pnpm test
+
+# Run E2E tests (starts API, Portal, and Backoffice automatically)
+pnpm test:e2e
+
+# Run everything (unit + E2E)
+pnpm test:all
+```
+
+## Git Hooks
+
+Managed by **Husky** with the following hooks:
+
+| Hook | What it does |
+|---|---|
+| `pre-commit` | Auto-fixes formatting and lint issues, then re-stages files |
+| `commit-msg` | Enforces [Conventional Commits](https://www.conventionalcommits.org/) via commitlint |
+| `pre-push` | Runs full build + all tests (unit + E2E) — blocks push on failure |
 
 ## License
 
