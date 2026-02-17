@@ -254,7 +254,7 @@ Better Auth exposes all authentication routes at `/api/auth/*`. The `AuthModule`
 ## Infrastructure (Docker)
 
 ```bash
-# Start PostgreSQL + Redis locally
+# Start PostgreSQL locally
 cd apps/api
 docker-compose up -d
 
@@ -270,7 +270,6 @@ docker-compose down -v
 
 Available services after `docker-compose up`:
 - PostgreSQL: `localhost:5432` (user: `postgres`, pass: `postgres`, db: `mono_repo_auth`)
-- Redis: `localhost:6379`
 
 ---
 

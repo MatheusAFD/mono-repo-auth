@@ -126,7 +126,7 @@ pnpm --filter @repo/api db:studio     # Drizzle Studio
 
 **Re-run after** modifying `src/auth/auth.ts` (adding plugins that change the schema).
 
-### Docker (PostgreSQL + Redis)
+### Docker (PostgreSQL)
 
 ```bash
 cd apps/api

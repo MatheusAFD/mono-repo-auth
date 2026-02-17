@@ -21,7 +21,7 @@ A full-stack monorepo starter with **authentication built-in**, featuring a user
 # 1. Install dependencies
 pnpm install
 
-# 2. Start infrastructure (PostgreSQL + Redis)
+# 2. Start infrastructure (PostgreSQL)
 cd apps/api && docker-compose up -d && cd ../..
 
 # 3. Set up environment variables
