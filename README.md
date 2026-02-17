@@ -106,6 +106,3 @@ Managed by **Husky** with the following hooks:
 | `commit-msg` | Enforces [Conventional Commits](https://www.conventionalcommits.org/) via commitlint |
 | `pre-push` | Runs full build + all tests (unit + E2E) — blocks push on failure |
 
-## License
-
-Private.
